@@ -7,7 +7,8 @@ import lombok.ToString;
 @Data
 @ToString
 @Component
-public class Address implements Serializable{
+public class Address implements Serializable {
+    private static final long serialVersionUID = -5074054035704940374L;
     private int id;
     private String block;
     private int floor;

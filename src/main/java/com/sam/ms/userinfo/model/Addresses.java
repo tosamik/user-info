@@ -10,5 +10,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class Addresses implements Serializable {
+    private static final long serialVersionUID = -4165929806212460337L;
     private List<Address> addresses;
 }

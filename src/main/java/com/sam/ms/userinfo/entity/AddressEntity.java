@@ -14,6 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name="user_address")
 public class AddressEntity implements Serializable {
+    private static final long serialVersionUID = 5575533594573415340L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
