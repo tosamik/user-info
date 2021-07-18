@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -29,20 +28,18 @@ public class AddressController {
     }
     
     @GetMapping("v1/addresses/{id}")
-    public Address findAddress(@RequestParam String id) {
-        Address address = null;
-
-        return address;
+    public Address findAddress(@PathVariable int id) {
+        return addressService.findAddressById(id);
 
     }
 
     @PostMapping("v1/addresses")
     public void saveAddress(@RequestBody Address address) {
-
+        addressService.saveAddress(address);
     }
 
     @PutMapping("v1/addresses/{id}")
-    public void updateAddress(@RequestBody Address address, @PathVariable Long id) {
-
+    public Address updateAddress(@RequestBody Address address, @PathVariable int id) {
+        return addressService.updateAddress(address, id);
     }
 }

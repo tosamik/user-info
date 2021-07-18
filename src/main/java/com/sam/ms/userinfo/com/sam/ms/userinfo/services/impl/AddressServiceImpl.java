@@ -1,6 +1,7 @@
 package com.sam.ms.userinfo.com.sam.ms.userinfo.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.sam.ms.userinfo.com.sam.ms.userinfo.repository.AddressRepository;
@@ -32,9 +33,48 @@ public class AddressServiceImpl implements AddressService {
         addresses.setAddresses(addressList);
         return addresses;
     }
+    
+    @Override 
+    public Address findAddressById(int id) {
+        AddressEntity address = addressRepository.findAddressById(id);
+        return convertToDto(address);
+    }
+
+    @Override
+    public void saveAddress(Address address) {
+        addressRepository.save(convertToEntity(address));
+    }
+
+    @Override
+    public Address updateAddress(Address newAddress, int id) {
+        if(addressRepository.findById(id).isPresent()) {
+            Address address = convertToDto(addressRepository.findById(id).get());
+            System.out.println("Address" + address);
+            populateAddress(newAddress, address);
+            System.out.println("Updated Address" + address);
+            addressRepository.save(convertToEntity(address));   
+            return convertToDto(addressRepository.getById(id));
+        }
+        return null;
+    }
+
+    private Address populateAddress(Address newAddress, Address address) {
+        address.setBlock(newAddress.getBlock());
+        address.setFloor(newAddress.getFloor());
+        address.setUnit(newAddress.getUnit());
+        address.setPostalCode(newAddress.getPostalCode());
+        address.setStreet1(newAddress.getStreet1());
+        address.setStreet2(newAddress.getStreet2());
+        return address;
+    }
 
     private Address convertToDto(AddressEntity entity) {
         Address address = modelMapper.map(entity, Address.class);
         return address;
-    }    
+    }
+
+    private AddressEntity convertToEntity(Address address) {
+        AddressEntity entity = modelMapper.map(address, AddressEntity.class);
+        return entity;
+    }
 }

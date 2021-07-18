@@ -8,3 +8,5 @@ Operations:-
 2. GET v1/address/{id}
 3. POST v1/address
 4. PUT v1/address/{id}
+
+Swagger URL - http://localhost:8080/api/swagger-ui/
